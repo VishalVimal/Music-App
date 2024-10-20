@@ -16,12 +16,14 @@ class _SignupPageState extends State<SignupPage> {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final formKey = GlobalKey<FormState>(); // to validate the form
 
   void dispose() {
     nameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
+    formKey.currentState?.validate();
   }
 
   @override
@@ -30,48 +32,52 @@ class _SignupPageState extends State<SignupPage> {
         appBar: AppBar(),
         body: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Sign Up.',
-                style: TextStyle(
-                  fontSize: 50,
-                  fontWeight: FontWeight.bold,
+          child: Form( // created a form to validate the form
+            key: formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'Sign Up.',
+                  style: TextStyle(
+                    fontSize: 50,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 30),
-              CustomTextField(
-                controller: nameController,
-                hintText: 'Name',
-              ),
-              const SizedBox(height: 15),
-              CustomTextField(
-                controller: emailController,
-                hintText: 'Email',
-              ),
-              const SizedBox(height: 15),
-              CustomTextField(
-                controller: passwordController,
-                hintText: 'Password',
-              ),
-              const SizedBox(height: 20),
-              AuthGradientButton(),
-              const SizedBox(height: 20),
-              RichText(
-                  text: TextSpan(
-                      text: 'Already have an account? ',
-                      style: Theme.of(context).textTheme.titleMedium,
-                      children: [
-                    TextSpan(
-                      text: 'Sign In',
-                      style: TextStyle(
-                        color: Pallete.gradient2,
-                        fontWeight: FontWeight.bold,
+                const SizedBox(height: 30),
+                CustomTextField(
+                  controller: nameController,
+                  hintText: 'Name',
+                ),
+                const SizedBox(height: 15),
+                CustomTextField(
+                  controller: emailController,
+                  hintText: 'Email',
+                ),
+                const SizedBox(height: 15),
+                CustomTextField(
+                  controller: passwordController,
+                  hintText: 'Password',
+                  isObscureText: true,
+                ),
+                const SizedBox(height: 20),
+                AuthGradientButton(),
+                const SizedBox(height: 20),
+                RichText(
+                    text: TextSpan(
+                        text: 'Already have an account? ',
+                        style: Theme.of(context).textTheme.titleMedium,
+                        children: [
+                      TextSpan(
+                        text: 'Sign In',
+                        style: TextStyle(
+                          color: Pallete.gradient2,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  ]))
-            ],
+                    ]))
+              ],
+            ),
           ),
         ));
   }

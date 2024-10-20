@@ -5,21 +5,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class SignupPage extends StatefulWidget {
-  const SignupPage({super.key, required String title});
+class LoginPage extends StatefulWidget { // multicurosr ctrl+K
+  const LoginPage({super.key, required String title});
 
   @override
-  State<SignupPage> createState() => _SignupPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _SignupPageState extends State<SignupPage> {
-  final nameController = TextEditingController();
+class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>(); // to validate the form
 
   void dispose() {
-    nameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
@@ -38,18 +36,13 @@ class _SignupPageState extends State<SignupPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  'Sign Up.',
+                  'Sign In.',
                   style: TextStyle(
                     fontSize: 50,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 30),
-                CustomTextField(
-                  controller: nameController,
-                  hintText: 'Name',
-                ),
-                const SizedBox(height: 15),
                 CustomTextField(
                   controller: emailController,
                   hintText: 'Email',
@@ -62,19 +55,19 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 const SizedBox(height: 20),
                 AuthGradientButton(
-                  ButtonText: 'Sign Up.',
+                  ButtonText: 'Sign In.',
                   onTap: () {
                     
-                  },
+                  } ,
                 ),
                 const SizedBox(height: 20),
                 RichText(
                     text: TextSpan(
-                        text: 'Already have an account? ',
+                        text: 'Don\'t have an account? ', // \- used backslash to use ' in Don't
                         style: Theme.of(context).textTheme.titleMedium,
                         children: const [
                       TextSpan(
-                        text: 'Sign In',
+                        text: 'Sign Up',
                         style: TextStyle(
                           color: Pallete.gradient2,
                           fontWeight: FontWeight.bold,

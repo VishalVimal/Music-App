@@ -1,4 +1,4 @@
-# client
+# It's a Music App
 
 A new Flutter project.
 

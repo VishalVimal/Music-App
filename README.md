@@ -1,4 +1,4 @@
-# It's a Music App
+# It's a Music App clone of spotify
 
 A new Flutter project.
 

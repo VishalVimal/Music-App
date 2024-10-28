@@ -9,13 +9,13 @@ class AuthRemoteRepository {
       required String password}) async {
     final response = await http.post(
         Uri.parse(
-          'http://127.0.0.1:8000/auth/signup', // Update this line
+          'http://10.0.2.2:8000/auth/signup', // Update this line
         ),
         headers: {
           'Content-Type': 'application/json',
         },
         body: jsonEncode({
-              'name': name,
+              'name': name, //simple map
               'email': email,
               'password': password
               }
@@ -23,7 +23,7 @@ class AuthRemoteRepository {
               );
 
     // Error handling
-    if (response.statusCode != 200) {
+    if (response.statusCode != 201) {
       throw Exception('Failed to sign up: ${response.body}');
     }
 

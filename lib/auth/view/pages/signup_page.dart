@@ -1,3 +1,4 @@
+import 'package:client/auth/repositories/remote_repository.dart';
 import 'package:client/auth/view/widgets/auth_gradient_button.dart';
 import 'package:client/auth/view/widgets/custom_textfield.dart';
 import 'package:client/core/theme/app_pallete.dart';
@@ -32,7 +33,8 @@ class _SignupPageState extends State<SignupPage> {
         appBar: AppBar(),
         body: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: Form( // created a form to validate the form
+          child: Form(
+            // created a form to validate the form
             key: formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -63,8 +65,11 @@ class _SignupPageState extends State<SignupPage> {
                 const SizedBox(height: 20),
                 AuthGradientButton(
                   ButtonText: 'Sign Up.',
-                  onTap: () {
-                    
+                  onTap: () async {
+                    await AuthRemoteRepository().signup(
+                        name: nameController.text,
+                        email: emailController.text,
+                        password: passwordController.text);
                   },
                 ),
                 const SizedBox(height: 20),

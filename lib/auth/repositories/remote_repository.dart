@@ -7,20 +7,28 @@ class AuthRemoteRepository {
       {required String name,
       required String email,
       required String password}) async {
+    // Validation to check for blank spaces
+    if (name.trim().isEmpty ||
+        email.trim().isEmpty ||
+        password.trim().isEmpty) {
+      throw ('Name, email, and password cannot be empty or contain only spaces.');
+    }
+
     final response = await http.post(
-        Uri.parse(
-          'http://10.0.2.2:8000/auth/signup', // Update this line
-        ),
-        headers: {
-          'Content-Type': 'application/json',
+      Uri.parse(
+        'http://10.0.2.2:8000/auth/signup', // Update this line
+      ),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(
+        {
+          'name': name, //simple map
+          'email': email,
+          'password': password
         },
-        body: jsonEncode({
-              'name': name, //simple map
-              'email': email,
-              'password': password
-              }
-              )
-              );
+      ),
+    );
 
     // Error handling
     if (response.statusCode != 201) {
@@ -31,5 +39,31 @@ class AuthRemoteRepository {
     print(response.statusCode);
   } //async - asynchronous is used bcz of http plugin here
 
-  Future<void> login() async {}
+  Future<void> login({required String email, required String password}) async {
+    // Validation to check for blank spaces
+    if (email.trim().isEmpty || password.trim().isEmpty) {
+      throw ('Email and password cannot be empty or contain only spaces.');
+    }
+
+    final response = await http.post(
+      Uri.parse(
+        'http://10.0.2.2:8000/auth/login',
+      ),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(
+        {
+          'email': email,
+          'password': password,
+        },
+      ),
+    );
+    print(response.body);
+    print(response.statusCode);
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to sign in: ${response.body}');
+    }
+  }
 }
